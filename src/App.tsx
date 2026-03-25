@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { 
   Calendar, 
   MapPin, 
@@ -23,11 +23,27 @@ import {
   X
 } from 'lucide-react';
 
-const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string, key?: React.Key }) => (
-  <div className={className}>
-    {children}
-  </div>
-);
+const FadeIn = ({ children, delay = 0, className = "", direction = "up" }: { children: React.ReactNode, delay?: number, className?: string, key?: React.Key, direction?: "up" | "down" | "left" | "right" | "none" }) => {
+  const directions = {
+    up: { y: 40, x: 0 },
+    down: { y: -40, x: 0 },
+    left: { x: 40, y: 0 },
+    right: { x: -40, y: 0 },
+    none: { x: 0, y: 0 }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, ...directions[direction] }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.7, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const NeuralNetworkGraphic = () => {
   // Generate nodes for the neural network
@@ -615,6 +631,13 @@ const Footer = () => (
 );
 
 export default function App() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   useEffect(() => {
     const handleSmoothScroll = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -638,6 +661,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-brand-dark text-text-primary selection:bg-brand-orange/30 font-sans">
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-orange to-orange-300 origin-left z-50"
+        style={{ scaleX }}
+      />
       <main>
         <Hero />
         <AboutAIDay />
