@@ -138,6 +138,82 @@ const NeuralNetworkGraphic = () => {
   );
 };
 
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'About', href: '#about' },
+    { name: 'Events', href: '#events' },
+    { name: 'Speakers', href: '#speakers' },
+    { name: 'Sponsor', href: '#sponsor' },
+    { name: 'Contact', href: '#contact' },
+    { name: 'FAQ', href: '#faq' },
+  ];
+
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-brand-dark/80 backdrop-blur-md border-b border-brand-light-gray py-4' : 'bg-transparent py-6'}`}>
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <a href="#" className="text-2xl font-bold tracking-tighter text-white">
+          AI Day <span className="text-brand-orange">Bhopal</span>
+        </a>
+
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <a key={link.name} href={link.href} className="text-sm font-medium text-text-secondary hover:text-brand-orange transition-colors">
+              {link.name}
+            </a>
+          ))}
+          <a href="#register" className="px-5 py-2 rounded-full bg-brand-orange text-white text-sm font-medium hover:bg-orange-600 transition-colors">
+            Register Now
+          </a>
+        </div>
+
+        {/* Mobile Nav Toggle */}
+        <button className="md:hidden text-text-secondary hover:text-white" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Nav Menu */}
+      {isOpen && (
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="absolute top-full left-0 right-0 bg-brand-dark border-b border-brand-light-gray p-6 flex flex-col gap-4 md:hidden shadow-2xl"
+        >
+          {navLinks.map((link) => (
+            <a 
+              key={link.name} 
+              href={link.href} 
+              className="text-lg font-medium text-text-secondary hover:text-brand-orange transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.name}
+            </a>
+          ))}
+          <a 
+            href="#register" 
+            className="mt-4 px-5 py-3 rounded-xl bg-brand-orange text-white text-center font-medium hover:bg-orange-600 transition-colors"
+            onClick={() => setIsOpen(false)}
+          >
+            Register Now
+          </a>
+        </motion.div>
+      )}
+    </nav>
+  );
+};
+
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -262,6 +338,14 @@ const AboutMLBhopal = () => {
     <section className="py-24 relative min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 w-full">
         <FadeIn direction="up" className="text-center max-w-3xl mx-auto mb-16">
+          <div className="flex justify-center mb-8">
+            <img 
+              src="https://mlbhopal.tech/logo.png" 
+              alt="ML Bhopal Logo" 
+              className="h-24 md:h-32 object-contain drop-shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+              referrerPolicy="no-referrer"
+            />
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-6">About ML Bhopal</h2>
           <p className="text-lg text-text-secondary leading-relaxed">
             ML Bhopal is a fast-growing AI/ML community dedicated to empowering students, developers, and professionals through practical learning and collaboration.
@@ -817,6 +901,7 @@ export default function App() {
         className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-orange to-orange-300 origin-left z-50"
         style={{ scaleX }}
       />
+      <Navbar />
       <main>
         <Hero />
         <AboutAIDay />
@@ -826,8 +911,8 @@ export default function App() {
         <EventHighlights />
         <WhySponsor />
         <CommunityLeads />
-        <FAQ />
         <Contact />
+        <FAQ />
       </main>
       <Footer />
     </div>
