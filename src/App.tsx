@@ -20,7 +20,8 @@ import {
   Instagram,
   Twitter,
   Menu,
-  X
+  X,
+  ChevronDown
 } from 'lucide-react';
 
 const FadeIn = ({ children, delay = 0, className = "", direction = "up" }: { children: React.ReactNode, delay?: number, className?: string, key?: React.Key, direction?: "up" | "down" | "left" | "right" | "none" }) => {
@@ -143,7 +144,7 @@ const Hero = () => {
       <div className="glow-effect top-1/2 left-3/4 -translate-y-1/2 -translate-x-1/2 opacity-50"></div>
       
       <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
-        <FadeIn>
+        <FadeIn direction="right">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-light-gray bg-brand-dark-gray/50 text-sm text-text-secondary mb-6">
             <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
             Central India's Biggest AI Builder Event
@@ -183,7 +184,7 @@ const Hero = () => {
           </div>
         </FadeIn>
         
-        <FadeIn delay={0.2} className="hidden lg:flex justify-center relative">
+        <FadeIn delay={0.2} direction="left" className="hidden lg:flex justify-center relative">
           <NeuralNetworkGraphic />
         </FadeIn>
       </div>
@@ -196,7 +197,7 @@ const AboutAIDay = () => {
     <section id="about" className="py-24 bg-brand-dark-gray border-y border-brand-light-gray relative min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <FadeIn>
+          <FadeIn direction="right">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">What is AI Day Bhopal?</h2>
             <p className="text-lg text-text-secondary mb-6 leading-relaxed">
               AI Day Bhopal is a flagship AI-focused conference designed to bring together the growing community of builders, learners, and innovators in the field of Artificial Intelligence.
@@ -222,7 +223,7 @@ const AboutAIDay = () => {
             </ul>
           </FadeIn>
           
-          <FadeIn delay={0.2}>
+          <FadeIn delay={0.2} direction="left">
             <div className="bg-brand-dark border border-brand-light-gray rounded-2xl p-8 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 blur-3xl"></div>
               
@@ -260,7 +261,7 @@ const AboutMLBhopal = () => {
   return (
     <section className="py-24 relative min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 w-full">
-        <FadeIn className="text-center max-w-3xl mx-auto mb-16">
+        <FadeIn direction="up" className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">About ML Bhopal</h2>
           <p className="text-lg text-text-secondary leading-relaxed">
             ML Bhopal is a fast-growing AI/ML community dedicated to empowering students, developers, and professionals through practical learning and collaboration.
@@ -285,7 +286,7 @@ const AboutMLBhopal = () => {
           ))}
         </div>
         
-        <FadeIn delay={0.3}>
+        <FadeIn delay={0.3} direction="up">
           <div className="bg-gradient-to-br from-brand-dark-gray to-brand-dark border border-brand-light-gray rounded-3xl p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
@@ -338,7 +339,7 @@ const PastEvents = () => {
   return (
     <section id="events" className="py-24 bg-brand-dark-gray border-y border-brand-light-gray min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 w-full">
-        <FadeIn className="mb-16">
+        <FadeIn direction="right" className="mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Past Events</h2>
           <p className="text-lg text-text-secondary max-w-2xl">
             We have consistently organized high-impact events focused on practical learning and community engagement.
@@ -392,7 +393,7 @@ const PastSpeakers = () => {
   return (
     <section id="speakers" className="py-24 relative min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 w-full">
-        <FadeIn className="mb-16 text-center">
+        <FadeIn direction="up" className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Past Speakers</h2>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
             We have hosted industry experts, researchers, and community leaders who bring real-world insights and practical knowledge.
@@ -438,7 +439,7 @@ const EventHighlights = () => {
   return (
     <section className="py-24 bg-brand-dark-gray border-y border-brand-light-gray min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 w-full">
-        <FadeIn className="mb-16 text-center">
+        <FadeIn direction="up" className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What You'll Experience</h2>
           <p className="text-lg text-text-secondary">This is not just an event — it's a builder experience.</p>
         </FadeIn>
@@ -478,7 +479,7 @@ const WhySponsor = () => {
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
         <div className="grid lg:grid-cols-5 gap-16 items-center">
           <div className="lg:col-span-2">
-            <FadeIn>
+            <FadeIn direction="right">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Why Partner With AI Day Bhopal?</h2>
               <p className="text-lg text-text-secondary mb-8 leading-relaxed">
                 A perfect platform for branding, hiring, and engagement. Connect with AI enthusiasts and build brand awareness in the tech ecosystem.
@@ -516,7 +517,7 @@ const CommunityLeads = () => {
   return (
     <section className="py-24 bg-brand-dark-gray border-y border-brand-light-gray min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 w-full">
-        <FadeIn className="mb-16 text-center">
+        <FadeIn direction="up" className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet the Team</h2>
           <p className="text-lg text-text-secondary">The people behind AI Day Bhopal</p>
         </FadeIn>
@@ -544,6 +545,157 @@ const CommunityLeads = () => {
   );
 };
 
+const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answer: React.ReactNode, isOpen: boolean, onClick: () => void }) => {
+  return (
+    <div className={`border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-brand-dark-gray border-brand-orange/30 shadow-[0_0_15px_rgba(249,115,22,0.05)]' : 'bg-brand-dark border-brand-light-gray hover:border-gray-600'}`}>
+      <button 
+        className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none"
+        onClick={onClick}
+      >
+        <span className="font-semibold text-lg pr-4">{question}</span>
+        <ChevronDown className={`transform transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180 text-brand-orange' : 'text-text-secondary'}`} />
+      </button>
+      <motion.div 
+        initial={false}
+        animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+        className="overflow-hidden"
+      >
+        <div className="px-6 pb-5 text-text-secondary leading-relaxed">
+          {answer}
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+const FAQ = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      question: "What is AI Day Bhopal?",
+      answer: "AI Day Bhopal is Central India's biggest AI-focused event designed to bring together students, developers, professionals, and innovators to learn, build, and explore real-world applications of AI."
+    },
+    {
+      question: "Who can attend this event?",
+      answer: (
+        <>
+          <p className="mb-2">Anyone interested in AI can attend, including:</p>
+          <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>Students (any year/branch)</li>
+            <li>Developers & engineers</li>
+            <li>Working professionals</li>
+            <li>Startup founders & entrepreneurs</li>
+          </ul>
+          <p>👉 No advanced AI knowledge is required — beginners are welcome!</p>
+        </>
+      )
+    },
+    {
+      question: "Do I need prior experience in AI/ML?",
+      answer: (
+        <>
+          <p className="mb-2">No. The event is designed for all levels:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Beginners can learn fundamentals</li>
+            <li>Intermediate learners can explore real-world use cases</li>
+            <li>Advanced participants can network and showcase projects</li>
+          </ul>
+        </>
+      )
+    },
+    {
+      question: "What will I gain from attending?",
+      answer: (
+        <>
+          <p className="mb-2">You will:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Learn from industry experts</li>
+            <li>Build real-world AI projects</li>
+            <li>Network with professionals and like-minded peers</li>
+            <li>Gain exposure to current AI trends & tools</li>
+          </ul>
+        </>
+      )
+    },
+    {
+      question: "Will there be hands-on sessions?",
+      answer: "Yes! We will have hands-on AI workshops where you can build projects that you can even showcase on your resume."
+    },
+    {
+      question: "Is there any registration fee?",
+      answer: "The event details regarding registration fees will be announced soon. Please keep an eye on our social media channels and the registration portal for updates."
+    },
+    {
+      question: "Will I get a certificate?",
+      answer: "Yes, participants will receive a certificate of participation after the event."
+    },
+    {
+      question: "Can I showcase my project?",
+      answer: "Yes! We will have an AI Project Showcase where selected participants can present their projects."
+    },
+    {
+      question: "How can I become a speaker or partner?",
+      answer: "You can reach out to us through the Contact section or apply via the partnership/speaker form."
+    },
+    {
+      question: "How can companies sponsor the event?",
+      answer: (
+        <>
+          <p className="mb-2">Companies can click on "Become a Sponsor" and fill out the form.</p>
+          <p>Our team will get in touch with sponsorship details and benefits.</p>
+        </>
+      )
+    },
+    {
+      question: "Will there be networking opportunities?",
+      answer: (
+        <>
+          <p className="mb-2">Absolutely! The event is designed to help you:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Connect with AI professionals</li>
+            <li>Meet potential collaborators</li>
+            <li>Expand your network</li>
+          </ul>
+        </>
+      )
+    },
+    {
+      question: "Where will the event be held?",
+      answer: (
+        <>
+          <p className="mb-2">📍 Bhopal, India</p>
+          <p className="text-sm opacity-80">(Exact venue details will be shared soon)</p>
+        </>
+      )
+    }
+  ];
+
+  return (
+    <section id="faq" className="py-24 relative min-h-screen flex items-center">
+      <div className="max-w-4xl mx-auto px-6 w-full">
+        <FadeIn direction="up" className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+          <p className="text-lg text-text-secondary">Got questions? We've got answers.</p>
+        </FadeIn>
+        
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <FadeIn key={index} delay={index * 0.1} direction="up">
+              <FAQItem 
+                question={faq.question} 
+                answer={faq.answer} 
+                isOpen={openIndex === index} 
+                onClick={() => setOpenIndex(openIndex === index ? null : index)} 
+              />
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Contact = () => {
   return (
     <section id="contact" className="py-24 relative min-h-screen flex items-center">
@@ -555,7 +707,7 @@ const Contact = () => {
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 blur-[80px] rounded-full pointer-events-none"></div>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
-            <FadeIn>
+            <FadeIn direction="right">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-light-gray bg-brand-dark-gray/50 text-sm text-text-secondary mb-6">
                 <span className="w-2 h-2 rounded-full bg-brand-orange"></span>
                 Reach Out
@@ -578,7 +730,7 @@ const Contact = () => {
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.2}>
+            <FadeIn delay={0.2} direction="left">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
                 {/* Email Card */}
                 <a href="mailto:contact@mlbhopal.tech" className="bg-brand-dark border border-brand-light-gray rounded-2xl p-6 flex items-center gap-6 hover:border-brand-orange hover:shadow-[0_0_30px_rgba(249,115,22,0.1)] transition-all group">
@@ -674,6 +826,7 @@ export default function App() {
         <EventHighlights />
         <WhySponsor />
         <CommunityLeads />
+        <FAQ />
         <Contact />
       </main>
       <Footer />
