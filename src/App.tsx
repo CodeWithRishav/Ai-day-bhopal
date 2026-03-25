@@ -35,68 +35,95 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children: React.React
   </motion.div>
 );
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+const NeuralNetworkGraphic = () => {
+  // Generate nodes for the neural network
+  const nodes = Array.from({ length: 20 }).map((_, i) => ({
+    id: i,
+    x: Math.random() * 80 + 10, // 10% to 90%
+    y: Math.random() * 80 + 10,
+    size: Math.random() * 6 + 4,
+    delay: Math.random() * 2,
+    duration: Math.random() * 3 + 2
+  }));
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Events', href: '#events' },
-    { name: 'Speakers', href: '#speakers' },
-    { name: 'Sponsor', href: '#sponsor' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  // Generate connections between nodes
+  const connections = [];
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      if (Math.random() > 0.8) { // 20% chance to connect
+        connections.push({ source: nodes[i], target: nodes[j] });
+      }
+    }
+  }
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-nav py-4' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold tracking-tight flex items-center gap-2">
-          <span className="text-brand-orange">AI</span> Day
-        </a>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="text-sm font-medium text-text-secondary hover:text-white transition-colors">
-              {link.name}
-            </a>
+    <div className="relative w-full aspect-square max-w-[500px]">
+      {/* Background Glows */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/20 to-transparent rounded-full blur-[80px] animate-pulse"></div>
+      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-[60px]"></div>
+      
+      {/* Main Container */}
+      <div className="absolute inset-0 rounded-full border border-brand-light-gray/30 bg-brand-dark-gray/20 backdrop-blur-sm overflow-hidden flex items-center justify-center shadow-2xl">
+        
+        {/* SVG Neural Network */}
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {/* Connections */}
+          {connections.map((conn, i) => (
+            <motion.line
+              key={`conn-${i}`}
+              x1={`${conn.source.x}%`}
+              y1={`${conn.source.y}%`}
+              x2={`${conn.target.x}%`}
+              y2={`${conn.target.y}%`}
+              stroke="url(#gradient-line)"
+              strokeWidth="0.2"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.5 }}
+              transition={{ duration: 2, delay: conn.source.delay, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+            />
           ))}
-          <a href="#register" className="bg-brand-orange text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-orange-600 transition-all hover:scale-105">
-            Register Now
-          </a>
-        </div>
 
-        {/* Mobile Toggle */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          {/* Nodes */}
+          {nodes.map((node) => (
+            <motion.circle
+              key={`node-${node.id}`}
+              cx={`${node.x}%`}
+              cy={`${node.y}%`}
+              r={node.size / 4}
+              fill="#F97316"
+              initial={{ scale: 0.5, opacity: 0.5 }}
+              animate={{ scale: [0.5, 1.2, 0.5], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: node.duration, delay: node.delay, repeat: Infinity, ease: "easeInOut" }}
+              className="drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]"
+            />
+          ))}
+
+          <defs>
+            <linearGradient id="gradient-line" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#F97316" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#60A5FA" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Central Glowing Orb */}
+        <motion.div 
+          animate={{ scale: [1, 1.05, 1], rotate: [0, 180, 360] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="relative z-10 w-40 h-40 rounded-full flex items-center justify-center"
+        >
+          <div className="absolute inset-0 rounded-full border border-brand-orange/30 border-dashed animate-[spin_10s_linear_infinite]"></div>
+          <div className="absolute inset-2 rounded-full border border-brand-orange/20 animate-[spin_15s_linear_infinite_reverse]"></div>
+          <div className="w-24 h-24 bg-brand-dark border border-brand-orange/50 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(249,115,22,0.4)] backdrop-blur-md">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-300">AI</div>
+              <div className="text-[10px] font-medium tracking-widest text-text-secondary uppercase mt-1">Bhopal</div>
+            </div>
+          </div>
+        </motion.div>
+
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 glass-nav border-t border-brand-light-gray py-4 px-6 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="text-base font-medium text-text-secondary hover:text-white"
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-          <a href="#register" className="bg-brand-orange text-white px-5 py-3 rounded-lg text-center font-medium mt-2" onClick={() => setIsOpen(false)}>
-            Register Now
-          </a>
-        </div>
-      )}
-    </nav>
+    </div>
   );
 };
 
@@ -112,9 +139,13 @@ const Hero = () => {
             Central India's Biggest AI Builder Event
           </div>
           
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight">
-            Build with <span className="text-brand-orange">AI</span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 tracking-tight">
+            AI Day Bhopal, <span className="text-brand-orange">2.0</span>
           </h1>
+          
+          <h2 className="text-2xl md:text-3xl font-medium text-white mb-6">
+            Build With <span className="text-brand-orange">AI</span>
+          </h2>
           
           <p className="text-lg md:text-xl text-text-secondary mb-8 max-w-xl leading-relaxed">
             Bringing together AI innovators, developers, students, and industry professionals to learn, build, and showcase real-world AI solutions.
@@ -140,28 +171,10 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a href="#register" className="bg-brand-orange text-white px-8 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all hover:scale-[1.03] flex items-center justify-center gap-2">
-              Register Now <ArrowRight size={18} />
-            </a>
-            <a href="#sponsor" className="border border-brand-orange text-brand-orange px-8 py-4 rounded-xl font-semibold hover:bg-brand-orange/10 transition-all flex items-center justify-center">
-              Become a Sponsor
-            </a>
-          </div>
         </FadeIn>
         
         <FadeIn delay={0.2} className="hidden lg:flex justify-center relative">
-          <div className="relative w-full aspect-square max-w-md">
-            <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/20 to-transparent rounded-full blur-3xl"></div>
-            <div className="absolute inset-8 border border-brand-light-gray rounded-full animate-[spin_60s_linear_infinite]"></div>
-            <div className="absolute inset-16 border border-brand-light-gray border-dashed rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-32 h-32 bg-brand-dark-gray border border-brand-orange/30 rounded-2xl rotate-12 flex items-center justify-center shadow-[0_0_50px_rgba(249,115,22,0.2)] backdrop-blur-sm">
-                <Code size={48} className="text-brand-orange" />
-              </div>
-            </div>
-          </div>
+          <NeuralNetworkGraphic />
         </FadeIn>
       </div>
     </section>
@@ -280,17 +293,17 @@ const AboutMLBhopal = () => {
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold mb-4">Impact So Far</h3>
                 <div className="flex items-center gap-4">
-                  <div className="text-3xl font-bold text-white">1000+</div>
+                  <div className="text-3xl font-bold text-white">2500+</div>
                   <div className="text-sm text-text-secondary">Learners impacted</div>
                 </div>
                 <div className="h-px w-full bg-brand-light-gray"></div>
                 <div className="flex items-center gap-4">
-                  <div className="text-3xl font-bold text-white">10+</div>
+                  <div className="text-3xl font-bold text-white">20+</div>
                   <div className="text-sm text-text-secondary">Workshops, hackathons & meetups</div>
                 </div>
                 <div className="h-px w-full bg-brand-light-gray"></div>
                 <div className="flex items-center gap-4">
-                  <div className="text-3xl font-bold text-white">5+</div>
+                  <div className="text-3xl font-bold text-white">15+</div>
                   <div className="text-sm text-text-secondary">Strong community collaborations</div>
                 </div>
               </div>
@@ -304,12 +317,12 @@ const AboutMLBhopal = () => {
 
 const PastEvents = () => {
   const events = [
-    { name: "TensorFlow Workshop", location: "Bhopal", image: "https://picsum.photos/seed/tf/600/400" },
-    { name: "ML Olympiad (Kaggle)", location: "Online + Bhopal", image: "https://picsum.photos/seed/kaggle/600/400" },
-    { name: "ML & Cybersecurity 101", location: "Bhopal", image: "https://picsum.photos/seed/cyber/600/400" },
-    { name: "ML Huddle", location: "Bhopal", image: "https://picsum.photos/seed/huddle/600/400" },
-    { name: "ML Nexus with CTF", location: "Bhopal", image: "https://picsum.photos/seed/ctf/600/400" },
-    { name: "Customizing LLMs Workshop", location: "Bhopal", image: "https://picsum.photos/seed/llm/600/400" },
+    { name: "Build With AI: Bhopal Edition-II", location: "Hotel La Pearl", image: "https://bhopal.aicommunity.dev/Events/Build%20With%20AI%20Bhopal%20Edition-II/Gallery/IMG_1119.JPG" },
+    { name: "Customizing LLMs: Google AI Studio in action with CTF", location: "RICR, Bhopal", image: "https://bhopal.aicommunity.dev/Events/Customising%20llms/Gallery/IMG_20250131_155337.jpg" },
+    { name: "Machine Learning Nexus With CTF", location: "LNCT, Bhopal", image: "https://bhopal.aicommunity.dev/Events/mlnexus/gallery/IMG20241005155506.jpg" },
+    { name: "GenAI Hackathon Bhopal", location: "SCA, Bhopal", image: "https://lh3.googleusercontent.com/pw/AP1GczN11RhU4g-1_I31DbIbrqAf9L8yOsIMNaZQzz4j6LEFqiPitUQfRlVQTmvyw5xlQCy6SxSm0XJ13ItuPTNL06fl_O6Ajnuvv8IGUDQdlXK2N4YJfKbTwQOSYFkph3lvd1dudX2qHjXr1xdwnUDaNq7O9A=w1379-h919-s-no-gm?authuser=0" },
+    { name: "PromptZilla", location: "IIIT Bhopal", image: "https://lh3.googleusercontent.com/pw/AP1GczPx99Gy9nWRbS6ZYwqVs0DIYysMoAn2DcK-uZyaqWKtb9d1ntfzNYbkAcQRsUv_rf-XjSZ4PxosY8ekbztED3Vf-GbB1KGfv2LrMKwHORy6Is7axO9-w9Cs9fhCZrogmSZaQlZNNlbBnY5JOB9O5r9wgA=w1379-h919-s-no-gm?authuser=0" },
+    { name: "ML Huddle: Cracking The Cyber Security PuzzleF", location: "Bhopal", image: "https://bhopal.aicommunity.dev/Events/mlhuddle/gallery/IMG_6724.JPG" },
   ];
 
   return (
@@ -356,14 +369,14 @@ const PastEvents = () => {
 
 const PastSpeakers = () => {
   const speakers = [
-    { name: "Jay Thakkar", role: "Google Developer Expert (GDE)", image: "https://picsum.photos/seed/jay/200/200" },
-    { name: "Vinayak Gavariya", role: "ML Engineer", image: "https://picsum.photos/seed/vinayak/200/200" },
-    { name: "Dr. Aditya Chandere", role: "IIT Indore", image: "https://picsum.photos/seed/aditya/200/200" },
-    { name: "Shubham Sharma", role: "Security Engineer @ We45", image: "https://picsum.photos/seed/shubham/200/200" },
-    { name: "Ankur Gupta", role: "SDE @ Internshala", image: "https://picsum.photos/seed/ankur/200/200" },
-    { name: "Aditya Rai", role: "Security Blue Team", image: "https://picsum.photos/seed/rai/200/200" },
-    { name: "Gaurav Nema", role: "Full Stack Engineer", image: "https://picsum.photos/seed/gaurav/200/200" },
-    { name: "More Experts", role: "To be announced", image: "https://picsum.photos/seed/more/200/200" },
+    { name: "Ashish Kr. Verma", role: "SDE @Microsoft", image: "https://media.licdn.com/dms/image/v2/D4D03AQER3dCW4r38yQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1701188127384?e=1776297600&v=beta&t=Qf7Lwxb59-FTTE7vhewjvd3EeaktPQaJfrRGGpGQaZw" },
+    { name: "Belal Khan", role: "Senior Engineer @American Express", image: "https://media.licdn.com/dms/image/v2/D5603AQEt49Wnu_xtNQ/profile-displayphoto-scale_200_200/B56Zh6inCfH0Ac-/0/1754402551843?e=1776297600&v=beta&t=ERha12YVcxh0vyQdy3RD9kQLQSuwbyqipCeW2VIvD4M" },
+    { name: "Balvinder Singh Saluja", role: "Senior Manager @KPMG", image: "https://media.licdn.com/dms/image/v2/D5603AQGMprU2ECqOkA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1679854154193?e=1776297600&v=beta&t=UD9hdc2pN0oS5sc_P8K12-a-axuvbKP_z7eJz8dJd0s" },
+    { name: "Niral Verma", role: "SDE @Microsoft", image: "https://media.licdn.com/dms/image/v2/D5603AQEoHqnditqaQA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1721743379027?e=1776297600&v=beta&t=4YK9l0pDTI2wdv0INKNnpT9mePMuY3G99W4HvJCjKDE" },
+    { name: "Ankur Gupta", role: "SDE @ Internshala", image: "https://media.licdn.com/dms/image/v2/D5603AQEb0Dmrb0-DTQ/profile-displayphoto-scale_200_200/B56Zs2BY9WJ8AY-/0/1766137898010?e=1776297600&v=beta&t=4ZjBwanTr1lz7wbgBJjTjn0GhKNYQCTRuer2JxfZdsM" },
+    { name: "Jay Thakkar", role: "AI ML Engineer @T9L Venture Builder", image: "https://media.licdn.com/dms/image/v2/D4D03AQFKVbKBmphuFQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1732427694949?e=1776297600&v=beta&t=akD7njPZ9rQtSgGLzyQTStnQ959Nkymmb7AUUzCowW0" },
+    { name: "Abhishek Sharma", role: "Lead Cloud Engineer @Searce Inc", image: "https://media.licdn.com/dms/image/v2/D4D03AQEwFSEDkkGNMg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1724960931308?e=1776297600&v=beta&t=nAhdAa5tqrNdOHWMoBt_FHvxIrk3lK4rfjCswtcqW_0" },
+    { name: "And Many More Experts", role: "ML Bhopal", image: "https://picsum.photos/seed/more/200/200" },
   ];
 
   return (
@@ -460,9 +473,6 @@ const WhySponsor = () => {
               <p className="text-lg text-text-secondary mb-8 leading-relaxed">
                 A perfect platform for branding, hiring, and engagement. Connect with AI enthusiasts and build brand awareness in the tech ecosystem.
               </p>
-              <a href="#contact" className="inline-flex items-center gap-2 bg-brand-orange text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all hover:scale-[1.03]">
-                Become a Sponsor <ArrowRight size={18} />
-              </a>
             </FadeIn>
           </div>
           
@@ -487,10 +497,10 @@ const WhySponsor = () => {
 
 const CommunityLeads = () => {
   const leads = [
-    { name: "Rishav Kumar", role: "Community Lead", image: "https://picsum.photos/seed/rishav/300/300" },
-    { name: "Rishabh Gupta", role: "Community Lead", image: "https://picsum.photos/seed/rishabh/300/300" },
-    { name: "Anurag Mishra", role: "Community Lead", image: "https://picsum.photos/seed/anurag/300/300" },
-    { name: "Abhishek Malviya", role: "Community Lead", image: "https://picsum.photos/seed/abhishek/300/300" },
+    { name: "Rishabh Gupta", role: "Technical Consultant @Salesforce", image: "https://media.licdn.com/dms/image/v2/D5603AQE4ZUFcJyFveQ/profile-displayphoto-scale_200_200/B56Zve.MrjHcAY-/0/1768972407356?e=1776297600&v=beta&t=3rbACTza5PI7pU5rfmZKOzNSaKNPZdJBrSFXB9OmFTs" },
+    { name: "Ankur Gupta", role: "SDE @Internshala", image: "https://media.licdn.com/dms/image/v2/D5603AQEb0Dmrb0-DTQ/profile-displayphoto-scale_200_200/B56Zs2BY9WJ8AY-/0/1766137898010?e=1776297600&v=beta&t=4ZjBwanTr1lz7wbgBJjTjn0GhKNYQCTRuer2JxfZdsM" },
+    { name: "Anurag Mishra", role: "SDE @Payu Payments", image: "https://media.licdn.com/dms/image/v2/D4D03AQExDiw9YcEuZw/profile-displayphoto-scale_200_200/B4DZqSgBVQGkAY-/0/1763394460083?e=1776297600&v=beta&t=b0pI-28vGCU4K0kSXARhBVb2EZnb26cLbeEdWqMO6t4" },
+    { name: "Rishav Kumar", role: "Community Lead @ML Bhopal", image: "https://media.licdn.com/dms/image/v2/D5635AQHuZP13080e6Q/profile-framedphoto-shrink_200_200/B56ZzsDQeTGkAY-/0/1773486803082?e=1775062800&v=beta&t=MQPHxkQCcONnQVtNC2jxSBH8tlG2AncTbTjsEh7YsPI" },
   ];
 
   return (
@@ -529,50 +539,68 @@ const Contact = () => {
     <section id="contact" className="py-24 relative">
       <div id="register" className="absolute -top-20"></div>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="bg-gradient-to-br from-brand-dark-gray to-brand-dark border border-brand-light-gray rounded-3xl p-8 md:p-12 overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/10 blur-3xl rounded-full"></div>
+        <div className="bg-gradient-to-br from-brand-dark-gray to-brand-dark border border-brand-light-gray rounded-3xl p-8 md:p-12 overflow-hidden relative shadow-2xl">
+          {/* Decorative Background Elements */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-brand-orange/10 blur-[100px] rounded-full pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 blur-[80px] rounded-full pointer-events-none"></div>
           
-          <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Connect</h2>
-              <p className="text-lg text-text-secondary mb-8">
-                Have questions or want to collaborate? Let's build the future of AI together.
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-light-gray bg-brand-dark-gray/50 text-sm text-text-secondary mb-6">
+                <span className="w-2 h-2 rounded-full bg-brand-orange"></span>
+                Reach Out
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Let's <span className="text-brand-orange">Connect</span></h2>
+              <p className="text-lg text-text-secondary mb-10 leading-relaxed max-w-md">
+                Have questions, want to collaborate, or just want to say hi? We're always open to discussing new ideas and opportunities to build the future of AI together.
               </p>
               
-              <div className="space-y-6 mb-8">
-                <a href="mailto:bhopal@mlcommunity.dev" className="flex items-center gap-4 text-text-secondary hover:text-white transition-colors group">
-                  <div className="w-12 h-12 rounded-xl bg-brand-dark border border-brand-light-gray flex items-center justify-center group-hover:border-brand-orange transition-colors">
-                    <Mail size={20} className="text-brand-orange" />
-                  </div>
-                  <span className="text-lg">bhopal@mlcommunity.dev</span>
-                </a>
-                <div className="flex items-center gap-4 text-text-secondary">
-                  <div className="w-12 h-12 rounded-xl bg-brand-dark border border-brand-light-gray flex items-center justify-center">
-                    <Phone size={20} className="text-brand-orange" />
-                  </div>
-                  <span className="text-lg">+91 (Add numbers)</span>
-                </div>
-              </div>
-              
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 rounded-full bg-brand-dark border border-brand-light-gray flex items-center justify-center text-text-secondary hover:text-brand-orange hover:border-brand-orange transition-all">
-                  <Linkedin size={18} />
+                <a href="#" className="w-12 h-12 rounded-full bg-brand-dark border border-brand-light-gray flex items-center justify-center text-text-secondary hover:text-brand-orange hover:border-brand-orange hover:bg-brand-orange/10 transition-all hover:-translate-y-1">
+                  <Linkedin size={20} />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-brand-dark border border-brand-light-gray flex items-center justify-center text-text-secondary hover:text-brand-orange hover:border-brand-orange transition-all">
-                  <Twitter size={18} />
+                <a href="#" className="w-12 h-12 rounded-full bg-brand-dark border border-brand-light-gray flex items-center justify-center text-text-secondary hover:text-brand-orange hover:border-brand-orange hover:bg-brand-orange/10 transition-all hover:-translate-y-1">
+                  <Twitter size={20} />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-brand-dark border border-brand-light-gray flex items-center justify-center text-text-secondary hover:text-brand-orange hover:border-brand-orange transition-all">
-                  <Instagram size={18} />
+                <a href="#" className="w-12 h-12 rounded-full bg-brand-dark border border-brand-light-gray flex items-center justify-center text-text-secondary hover:text-brand-orange hover:border-brand-orange hover:bg-brand-orange/10 transition-all hover:-translate-y-1">
+                  <Instagram size={20} />
                 </a>
               </div>
             </FadeIn>
-            
-            <FadeIn delay={0.2} className="flex flex-col items-center md:items-end justify-center">
-              <div className="bg-brand-dark border border-brand-light-gray rounded-2xl p-8 w-full max-w-md text-center">
-                <h3 className="text-2xl font-bold mb-2">Sponsor With Us</h3>
-                <p className="text-text-secondary mb-6">Partner with Central India's biggest AI event.</p>
-                <a href="mailto:bhopal@mlcommunity.dev?subject=Sponsorship Inquiry" className="block w-full bg-brand-orange text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all hover:scale-[1.02]">
-                  Become a Sponsor
+
+            <FadeIn delay={0.2}>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                {/* Email Card */}
+                <a href="mailto:contact@mlbhopal.tech" className="bg-brand-dark border border-brand-light-gray rounded-2xl p-6 flex items-center gap-6 hover:border-brand-orange hover:shadow-[0_0_30px_rgba(249,115,22,0.1)] transition-all group">
+                  <div className="w-14 h-14 shrink-0 rounded-xl bg-brand-dark-gray border border-brand-light-gray flex items-center justify-center group-hover:bg-brand-orange/10 group-hover:border-brand-orange/30 transition-colors">
+                    <Mail size={24} className="text-brand-orange" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <p className="text-sm text-text-muted mb-1">Email Us</p>
+                    <p className="text-lg font-medium text-white truncate">contact@mlbhopal.tech</p>
+                  </div>
+                </a>
+                
+                {/* Phone Card */}
+                <a href="tel:+918969879979" className="bg-brand-dark border border-brand-light-gray rounded-2xl p-6 flex items-center gap-6 hover:border-brand-orange hover:shadow-[0_0_30px_rgba(249,115,22,0.1)] transition-all group">
+                  <div className="w-14 h-14 shrink-0 rounded-xl bg-brand-dark-gray border border-brand-light-gray flex items-center justify-center group-hover:bg-brand-orange/10 group-hover:border-brand-orange/30 transition-colors">
+                    <Phone size={24} className="text-brand-orange" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <p className="text-sm text-text-muted mb-1">Call Us</p>
+                    <p className="text-lg font-medium text-white truncate">+91 8969879979</p>
+                  </div>
+                </a>
+
+                {/* Commudle Card */}
+                <a href="https://www.commudle.com/communities/ml-bhopal" target="_blank" rel="noopener noreferrer" className="bg-brand-dark border border-brand-light-gray rounded-2xl p-6 flex items-center gap-6 hover:border-brand-orange hover:shadow-[0_0_30px_rgba(249,115,22,0.1)] transition-all group sm:col-span-2 lg:col-span-1">
+                  <div className="w-14 h-14 shrink-0 rounded-xl bg-brand-dark-gray border border-brand-light-gray flex items-center justify-center group-hover:bg-brand-orange/10 group-hover:border-brand-orange/30 transition-colors">
+                    <Users size={24} className="text-brand-orange" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <p className="text-sm text-text-muted mb-1">Join our Community</p>
+                    <p className="text-lg font-medium text-white truncate">ML Bhopal on Commudle</p>
+                  </div>
                 </a>
               </div>
             </FadeIn>
@@ -591,32 +619,6 @@ const Footer = () => (
     </div>
   </footer>
 );
-
-const FloatingCTA = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Show after scrolling past hero section (approx 600px)
-      setVisible(window.scrollY > 600);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 50 }}
-      transition={{ duration: 0.3 }}
-      className={`fixed bottom-8 right-8 z-50 ${visible ? 'pointer-events-auto' : 'pointer-events-none'}`}
-    >
-      <a href="#register" className="bg-brand-orange text-white px-6 py-3 rounded-full font-semibold shadow-[0_10px_30px_rgba(249,115,22,0.3)] hover:bg-orange-600 hover:scale-105 transition-all flex items-center gap-2">
-        Register Now <ArrowRight size={16} />
-      </a>
-    </motion.div>
-  );
-};
 
 export default function App() {
   useEffect(() => {
@@ -642,7 +644,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-brand-dark text-text-primary selection:bg-brand-orange/30 font-sans">
-      <Navbar />
       <main>
         <Hero />
         <AboutAIDay />
@@ -655,7 +656,6 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-      <FloatingCTA />
     </div>
   );
 }

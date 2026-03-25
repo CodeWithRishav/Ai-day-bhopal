@@ -1,20 +1,56 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# AI Day Bhopal - Landing Page
 
-# Run and deploy your AI Studio app
+Central India's Biggest AI Builder Event landing page. Built with React, Vite, Tailwind CSS, and Framer Motion.
 
-This contains everything you need to run your app locally.
+## Local Development
 
-View your app in AI Studio: https://ai.studio/apps/de210c80-0b9b-494e-8c8a-756e328beaaf
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Run Locally
+## Deployment on Vercel
 
-**Prerequisites:**  Node.js
+This project is optimized for deployment on [Vercel](https://vercel.com). Since it is built with Vite, Vercel will automatically detect the framework and configure the build settings for you.
 
+### Option 1: Deploy via Vercel Dashboard (Recommended)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket).
+2. Log in to your [Vercel Dashboard](https://vercel.com/dashboard).
+3. Click on **Add New...** > **Project**.
+4. Import your Git repository.
+5. Vercel will automatically detect **Vite**. Ensure the following settings are correct (they usually are by default):
+   - **Framework Preset**: Vite
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+6. Click **Deploy**.
+
+### Option 2: Deploy via Vercel CLI
+
+If you prefer using the command line:
+
+1. Install the Vercel CLI globally:
+   ```bash
+   npm i -g vercel
+   ```
+2. Run the `vercel` command from the root of your project:
+   ```bash
+   vercel
+   ```
+3. Follow the prompts to link your project and deploy.
+4. To deploy to production, run:
+   ```bash
+   vercel --prod
+   ```
+
+## Technologies Used
+- React 19
+- Vite
+- Tailwind CSS v4
+- Framer Motion
+- Lucide React
