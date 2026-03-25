@@ -23,16 +23,10 @@ import {
   X
 } from 'lucide-react';
 
-const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-100px" }}
-    transition={{ duration: 0.5, delay }}
-    className={className}
-  >
+const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string, key?: React.Key }) => (
+  <div className={className}>
     {children}
-  </motion.div>
+  </div>
 );
 
 const NeuralNetworkGraphic = () => {
@@ -183,8 +177,8 @@ const Hero = () => {
 
 const AboutAIDay = () => {
   return (
-    <section id="about" className="py-24 bg-brand-dark-gray border-y border-brand-light-gray relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="about" className="py-24 bg-brand-dark-gray border-y border-brand-light-gray relative min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto px-6 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">What is AI Day Bhopal?</h2>
@@ -248,8 +242,8 @@ const AboutAIDay = () => {
 
 const AboutMLBhopal = () => {
   return (
-    <section className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-24 relative min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto px-6 w-full">
         <FadeIn className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">About ML Bhopal</h2>
           <p className="text-lg text-text-secondary leading-relaxed">
@@ -326,8 +320,8 @@ const PastEvents = () => {
   ];
 
   return (
-    <section id="events" className="py-24 bg-brand-dark-gray border-y border-brand-light-gray">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="events" className="py-24 bg-brand-dark-gray border-y border-brand-light-gray min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto px-6 w-full">
         <FadeIn className="mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Past Events</h2>
           <p className="text-lg text-text-secondary max-w-2xl">
@@ -380,8 +374,8 @@ const PastSpeakers = () => {
   ];
 
   return (
-    <section id="speakers" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="speakers" className="py-24 relative min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto px-6 w-full">
         <FadeIn className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Past Speakers</h2>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
@@ -426,8 +420,8 @@ const EventHighlights = () => {
   ];
 
   return (
-    <section className="py-24 bg-brand-dark-gray border-y border-brand-light-gray">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-24 bg-brand-dark-gray border-y border-brand-light-gray min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto px-6 w-full">
         <FadeIn className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What You'll Experience</h2>
           <p className="text-lg text-text-secondary">This is not just an event — it's a builder experience.</p>
@@ -462,10 +456,10 @@ const WhySponsor = () => {
   ];
 
   return (
-    <section id="sponsor" className="py-24 relative">
+    <section id="sponsor" className="py-24 relative min-h-screen flex items-center">
       <div className="glow-effect top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 opacity-30"></div>
       
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
         <div className="grid lg:grid-cols-5 gap-16 items-center">
           <div className="lg:col-span-2">
             <FadeIn>
@@ -504,8 +498,8 @@ const CommunityLeads = () => {
   ];
 
   return (
-    <section className="py-24 bg-brand-dark-gray border-y border-brand-light-gray">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-24 bg-brand-dark-gray border-y border-brand-light-gray min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto px-6 w-full">
         <FadeIn className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet the Team</h2>
           <p className="text-lg text-text-secondary">The people behind AI Day Bhopal</p>
@@ -536,9 +530,9 @@ const CommunityLeads = () => {
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-24 relative">
+    <section id="contact" className="py-24 relative min-h-screen flex items-center">
       <div id="register" className="absolute -top-20"></div>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 w-full">
         <div className="bg-gradient-to-br from-brand-dark-gray to-brand-dark border border-brand-light-gray rounded-3xl p-8 md:p-12 overflow-hidden relative shadow-2xl">
           {/* Decorative Background Elements */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-brand-orange/10 blur-[100px] rounded-full pointer-events-none"></div>
