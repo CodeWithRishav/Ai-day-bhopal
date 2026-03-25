@@ -595,7 +595,7 @@ const CommunityLeads = () => {
     { name: "Rishabh Gupta", role: "Technical Consultant @Salesforce", image: "https://media.licdn.com/dms/image/v2/D5603AQE4ZUFcJyFveQ/profile-displayphoto-scale_200_200/B56Zve.MrjHcAY-/0/1768972407356?e=1776297600&v=beta&t=3rbACTza5PI7pU5rfmZKOzNSaKNPZdJBrSFXB9OmFTs" },
     { name: "Ankur Gupta", role: "SDE @Internshala", image: "https://media.licdn.com/dms/image/v2/D5603AQEb0Dmrb0-DTQ/profile-displayphoto-scale_200_200/B56Zs2BY9WJ8AY-/0/1766137898010?e=1776297600&v=beta&t=4ZjBwanTr1lz7wbgBJjTjn0GhKNYQCTRuer2JxfZdsM" },
     { name: "Anurag Mishra", role: "SDE @Payu Payments", image: "https://media.licdn.com/dms/image/v2/D4D03AQExDiw9YcEuZw/profile-displayphoto-scale_200_200/B4DZqSgBVQGkAY-/0/1763394460083?e=1776297600&v=beta&t=b0pI-28vGCU4K0kSXARhBVb2EZnb26cLbeEdWqMO6t4" },
-    { name: "Rishav Kumar", role: "Community Lead @ML Bhopal", image: "https://media.licdn.com/dms/image/v2/D5635AQHuZP13080e6Q/profile-framedphoto-shrink_200_200/B56ZzsDQeTGkAY-/0/1773486803082?e=1775062800&v=beta&t=MQPHxkQCcONnQVtNC2jxSBH8tlG2AncTbTjsEh7YsPI" },
+    { name: "Rishav Kumar", role: "Community Lead @ML Bhopal", image: "https://media.licdn.com/dms/image/v2/D5603AQGD8pbfyxK7LQ/profile-displayphoto-scale_400_400/B56ZzYaD6fHoAg-/0/1773157254151?e=2147483647&v=beta&t=5B_XleL54f2_DXM9OEzqrd8kNtfC_6n969foWV7ioc4" },
   ];
 
   return (
