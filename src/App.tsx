@@ -471,7 +471,8 @@ const PastSpeakers = () => {
     { name: "Ankur Gupta", role: "SDE @ Internshala", image: "https://media.licdn.com/dms/image/v2/D5603AQEb0Dmrb0-DTQ/profile-displayphoto-scale_200_200/B56Zs2BY9WJ8AY-/0/1766137898010?e=1776297600&v=beta&t=4ZjBwanTr1lz7wbgBJjTjn0GhKNYQCTRuer2JxfZdsM" },
     { name: "Jay Thakkar", role: "AI ML Engineer @T9L Venture Builder", image: "https://media.licdn.com/dms/image/v2/D4D03AQFKVbKBmphuFQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1732427694949?e=1776297600&v=beta&t=akD7njPZ9rQtSgGLzyQTStnQ959Nkymmb7AUUzCowW0" },
     { name: "Abhishek Sharma", role: "Lead Cloud Engineer @Searce Inc", image: "https://media.licdn.com/dms/image/v2/D4D03AQEwFSEDkkGNMg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1724960931308?e=1776297600&v=beta&t=nAhdAa5tqrNdOHWMoBt_FHvxIrk3lK4rfjCswtcqW_0" },
-    { name: "And Many More Experts", role: "ML Bhopal", image: "https://picsum.photos/seed/more/200/200" },
+    { name: "Ashutosh S. Bhakare", role: "GDE & CEO @Unnati Development and Training Centre Pvt Ltd ", image: "https://media.licdn.com/dms/image/v2/C4D03AQFnGACNgldS7A/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1517489127946?e=1776297600&v=beta&t=GXSMhHJy14jnJkoy3-cixwPfAcv1Oxrf3mnsTzTCJ7s" },
+    { name: "Jitendra Gupta", role: "Enterprise Architect - AIOps & Platform Engineering @EPAM", image: "https://media.licdn.com/dms/image/v2/D4D03AQG3iAt6_UdVkQ/profile-displayphoto-scale_200_200/B4DZlhVOzBJcAY-/0/1758274584099?e=1776297600&v=beta&t=lToHFFZBnGLeZTmH21DDWiNA3C5MHKZUcgpQpZ1TAew" },
   ];
 
   return (
